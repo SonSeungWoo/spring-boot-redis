@@ -9,6 +9,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Leo.
@@ -23,6 +26,9 @@ public class LogFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String startTime = LocalDateTime.now().format(formatter);
 
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -39,7 +45,8 @@ public class LogFilter implements Filter {
             response.getWriter().write(content);
         }
 
-        logger.info("request : {} , response : {}", body, responseWrapper.getCaptureAsString());
+        String endTime = LocalDateTime.now().format(formatter);
+        logger.info("request : {} startTime: {}, response : {} endTime : {} ", body, startTime, responseWrapper.getCaptureAsString(), endTime);
 
     }
 }

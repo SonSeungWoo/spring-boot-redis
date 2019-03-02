@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer, WebMvcRegistrations {
     public FilterRegistrationBean<LogFilter> myFilter() {
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new LogFilter());
-        bean.setUrlPatterns(Arrays.asList("/*")); //testHello 요청으로 오는 애들만 필러링
+        bean.setUrlPatterns(Arrays.asList("/*"));
         return bean;
     }
 }
